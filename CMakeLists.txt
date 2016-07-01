@@ -107,12 +107,9 @@ configure_file("config.h.in" "config.h")
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-option(PROTOBUF_ROOT "Location of protobuf sources.")
-if (NOT PROTOBUF_ROOT)
-  message(FATAL_ERROR "PROTOBUF_ROOT must be set to the location of protobuf sources.")
-endif()
+set(PROTOBUF_ROOT "${CMAKE_CURRENT_LIST_DIR}/protobuf-2.6.1")
 
-message(STATUS "Protobuf sources in ${PROTOBUF_ROOT}")
+
 add_subdirectory(libprotobuf)
 add_subdirectory(libprotoc)
 add_subdirectory(protoc)
