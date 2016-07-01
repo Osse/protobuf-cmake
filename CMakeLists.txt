@@ -1,5 +1,15 @@
+cmake_minimum_required(VERSION 3.0)
+
+include("HunterGate.cmake")
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.14.29.tar.gz"
+    SHA1 "9c29c30fff99b7c1479b2e9d4926dcc3f8d364e0"
+)
+
 project(Protobuf)
-cmake_minimum_required(VERSION 2.6)
+
+hunter_add_package(ZLIB)
+find_package(ZLIB REQUIRED)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include(CheckIncludeFiles)
@@ -7,6 +17,8 @@ include(CheckCxxHashset)
 include(CheckCxxHashmap)
 
 check_include_files("pthread.h" HAVE_PTHREAD)
+
+check_include_files("zlib.h" HAVE_ZLIB)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   include(CheckIncludeFileCXX)

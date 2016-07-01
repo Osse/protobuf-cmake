@@ -27,7 +27,7 @@
 #cmakedefine HAVE_PTHREAD
 
 /* Enable classes using zlib compression. */
-#undef HAVE_ZLIB
+#cmakedefine HAVE_ZLIB @HAVE_ZLIB@
 
 /* Enable extensions on AIX 3, Interix.  */
 #ifndef _ALL_SOURCE
