@@ -5,7 +5,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include(CheckIncludeFiles)
 include(CheckCxxHashset)
 include(CheckCxxHashmap)
-include(ProtobufDownloader)
 
 check_include_files("pthread.h" HAVE_PTHREAD)
 
@@ -96,26 +95,12 @@ configure_file("config.h.in" "config.h")
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-set(PROTOBUF_ROOT "" CACHE PATH "Location of protobuf sources.")
-option(DOWNLOAD_PROTOBUF "Download Protobuf sources." ON)
-
-if (NOT PROTOBUF_ROOT AND DOWNLOAD_PROTOBUF)
-
-  protobuf_download_and_extract("2.5.0" PROTOBUF_SOURCE_PATH)
-
-  if(PROTOBUF_SOURCE_PATH)
-    set(PROTOBUF_ROOT "${PROTOBUF_SOURCE_PATH}" CACHE
-      PATH "Location of protobuf sources." FORCE)
-  endif()
-
-endif()
-
-if(NOT PROTOBUF_ROOT)
+option(PROTOBUF_ROOT "Location of protobuf sources.")
+if (NOT PROTOBUF_ROOT)
   message(FATAL_ERROR "PROTOBUF_ROOT must be set to the location of protobuf sources.")
-else()
-  message(STATUS "Protobuf sources in ${PROTOBUF_ROOT}")
 endif()
 
+message(STATUS "Protobuf sources in ${PROTOBUF_ROOT}")
 add_subdirectory(libprotobuf)
 add_subdirectory(libprotoc)
 add_subdirectory(protoc)
